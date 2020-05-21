@@ -81,12 +81,13 @@ func getIMGLinks(url string) ([]string, int) {
 	//处理链接所在的节点
 	var f func(*html.Node)
 	f = func(n *html.Node) {
-		if n.Type == html.ElementNode && n.Data == "img" {
+		if n.Type == html.ElementNode && n.Data == "div" {
 			for _, a := range n.Attr {
-				if a.Key == "src" {
+				if a.Key == "data-img" {
 					//向结果数组添加图像链接
 					res = append(res, a.Val)
 				}
+				log.Println(a.Key, a.Val)
 			}
 		}
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
